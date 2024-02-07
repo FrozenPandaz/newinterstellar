@@ -1,0 +1,810 @@
+{
+  "graph": {
+    "nodes": {
+      "flight-simulator-e2e": {
+        "name": "flight-simulator-e2e",
+        "type": "e2e",
+        "data": {
+          "root": "apps/flight-simulator-e2e",
+          "projectType": "application",
+          "targets": {
+            "e2e": {
+              "options": {
+                "cwd": "apps/flight-simulator-e2e",
+                "command": "cypress run"
+              },
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/screenshots"
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/flight-simulator-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run flight-simulator:serve-static\" --spec src/e2e/app.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app2.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/flight-simulator-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run flight-simulator:serve-static\" --spec src/e2e/app2.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app3.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/flight-simulator-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run flight-simulator:serve-static\" --spec src/e2e/app3.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci": {
+              "executor": "nx:noop",
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/flight-simulator-e2e/screenshots"
+              ],
+              "dependsOn": [
+                {
+                  "target": "e2e-ci--src/e2e/app.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                },
+                {
+                  "target": "e2e-ci--src/e2e/app2.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                },
+                {
+                  "target": "e2e-ci--src/e2e/app3.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                }
+              ],
+              "options": {},
+              "configurations": {}
+            },
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "apps/flight-simulator-e2e",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/apps/flight-simulator-e2e/.eslintrc.json",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": ["eslint"]
+                }
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            }
+          },
+          "name": "flight-simulator-e2e",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/flight-simulator-e2e/src",
+          "tags": [],
+          "implicitDependencies": ["flight-simulator"]
+        }
+      },
+      "flight-simulator": {
+        "name": "flight-simulator",
+        "type": "app",
+        "data": {
+          "root": "apps/flight-simulator",
+          "targets": {
+            "build": {
+              "dependsOn": ["^build"],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["next"]
+                }
+              ],
+              "outputs": ["{projectRoot}/out", "{projectRoot}/.next"],
+              "executor": "nx:run-commands",
+              "options": {
+                "cwd": "apps/flight-simulator",
+                "command": "next build"
+              },
+              "configurations": {}
+            },
+            "dev": {
+              "options": {
+                "cwd": "apps/flight-simulator",
+                "command": "next dev"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "start": {
+              "options": {
+                "cwd": "apps/flight-simulator",
+                "command": "next start"
+              },
+              "dependsOn": ["build"],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "apps/flight-simulator",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/apps/flight-simulator/.eslintrc.json",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": ["eslint"]
+                }
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "test": {
+              "options": {
+                "cwd": "apps/flight-simulator",
+                "command": "jest"
+              },
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["jest"]
+                }
+              ],
+              "outputs": ["{workspaceRoot}/coverage/apps/flight-simulator"],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "serve-static": {
+              "executor": "@nx/web:file-server",
+              "dependsOn": ["build"],
+              "options": {
+                "watch": false,
+                "staticFilePath": "apps/flight-simulator/out",
+                "port": 4202
+              },
+              "configurations": {}
+            }
+          },
+          "name": "flight-simulator",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/flight-simulator",
+          "projectType": "application",
+          "tags": [],
+          "implicitDependencies": []
+        }
+      },
+      "navigation-e2e": {
+        "name": "navigation-e2e",
+        "type": "e2e",
+        "data": {
+          "root": "apps/navigation-e2e",
+          "projectType": "application",
+          "targets": {
+            "e2e": {
+              "options": {
+                "cwd": "apps/navigation-e2e",
+                "command": "cypress run"
+              },
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/screenshots"
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/navigation-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run navigation:serve-static\" --spec src/e2e/app.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app2.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/navigation-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run navigation:serve-static\" --spec src/e2e/app2.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app3.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/navigation-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run navigation:serve-static\" --spec src/e2e/app3.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app4.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/navigation-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run navigation:serve-static\" --spec src/e2e/app4.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci": {
+              "executor": "nx:noop",
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/navigation-e2e/screenshots"
+              ],
+              "dependsOn": [
+                {
+                  "target": "e2e-ci--src/e2e/app.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                },
+                {
+                  "target": "e2e-ci--src/e2e/app2.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                },
+                {
+                  "target": "e2e-ci--src/e2e/app3.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                },
+                {
+                  "target": "e2e-ci--src/e2e/app4.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                }
+              ],
+              "options": {},
+              "configurations": {}
+            },
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "apps/navigation-e2e",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/apps/navigation-e2e/.eslintrc.json",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": ["eslint"]
+                }
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            }
+          },
+          "name": "navigation-e2e",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/navigation-e2e/src",
+          "tags": [],
+          "implicitDependencies": ["navigation"]
+        }
+      },
+      "navigation": {
+        "name": "navigation",
+        "type": "app",
+        "data": {
+          "root": "apps/navigation",
+          "targets": {
+            "build": {
+              "dependsOn": ["^build"],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["next"]
+                }
+              ],
+              "outputs": ["{projectRoot}/out", "{projectRoot}/.next"],
+              "executor": "nx:run-commands",
+              "options": {
+                "cwd": "apps/navigation",
+                "command": "next build"
+              },
+              "configurations": {}
+            },
+            "dev": {
+              "options": {
+                "cwd": "apps/navigation",
+                "command": "next dev"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "start": {
+              "options": {
+                "cwd": "apps/navigation",
+                "command": "next start"
+              },
+              "dependsOn": ["build"],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "apps/navigation",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/apps/navigation/.eslintrc.json",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": ["eslint"]
+                }
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "test": {
+              "options": {
+                "cwd": "apps/navigation",
+                "command": "jest"
+              },
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["jest"]
+                }
+              ],
+              "outputs": ["{workspaceRoot}/coverage/apps/navigation"],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "serve-static": {
+              "executor": "@nx/web:file-server",
+              "dependsOn": ["build"],
+              "options": {
+                "watch": false,
+                "staticFilePath": "apps/navigation/out",
+                "port": 4203
+              },
+              "configurations": {}
+            }
+          },
+          "name": "navigation",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/navigation",
+          "projectType": "application",
+          "tags": [],
+          "implicitDependencies": []
+        }
+      },
+      "crew-e2e": {
+        "name": "crew-e2e",
+        "type": "e2e",
+        "data": {
+          "root": "apps/crew-e2e",
+          "projectType": "application",
+          "targets": {
+            "e2e": {
+              "options": {
+                "cwd": "apps/crew-e2e",
+                "command": "cypress run"
+              },
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/screenshots"
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/crew-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run crew:serve-static\" --spec src/e2e/app.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app2.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/crew-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run crew:serve-static\" --spec src/e2e/app2.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app3.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/crew-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run crew:serve-static\" --spec src/e2e/app3.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci--src/e2e/app4.cy.ts": {
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/screenshots"
+              ],
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "cache": true,
+              "options": {
+                "cwd": "apps/crew-e2e",
+                "command": "cypress run --env webServerCommand=\"nx run crew:serve-static\" --spec src/e2e/app4.cy.ts"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "e2e-ci": {
+              "executor": "nx:noop",
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["cypress"]
+                }
+              ],
+              "outputs": [
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/videos",
+                "{workspaceRoot}/dist/cypress/apps/crew-e2e/screenshots"
+              ],
+              "dependsOn": [
+                {
+                  "target": "e2e-ci--src/e2e/app.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                },
+                {
+                  "target": "e2e-ci--src/e2e/app2.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                },
+                {
+                  "target": "e2e-ci--src/e2e/app3.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                },
+                {
+                  "target": "e2e-ci--src/e2e/app4.cy.ts",
+                  "projects": "self",
+                  "params": "forward"
+                }
+              ],
+              "options": {},
+              "configurations": {}
+            },
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "apps/crew-e2e",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/apps/crew-e2e/.eslintrc.json",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": ["eslint"]
+                }
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            }
+          },
+          "name": "crew-e2e",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/crew-e2e/src",
+          "tags": [],
+          "implicitDependencies": ["crew"]
+        }
+      },
+      "crew": {
+        "name": "crew",
+        "type": "app",
+        "data": {
+          "root": "apps/crew",
+          "targets": {
+            "build": {
+              "dependsOn": ["^build"],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["next"]
+                }
+              ],
+              "outputs": ["{projectRoot}/out", "{projectRoot}/.next"],
+              "executor": "nx:run-commands",
+              "options": {
+                "cwd": "apps/crew",
+                "command": "next build"
+              },
+              "configurations": {}
+            },
+            "dev": {
+              "options": {
+                "cwd": "apps/crew",
+                "command": "next dev"
+              },
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "start": {
+              "options": {
+                "cwd": "apps/crew",
+                "command": "next start"
+              },
+              "dependsOn": ["build"],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "lint": {
+              "cache": true,
+              "options": {
+                "cwd": "apps/crew",
+                "command": "eslint ."
+              },
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/apps/crew/.eslintrc.json",
+                "{workspaceRoot}/tools/eslint-rules/**/*",
+                {
+                  "externalDependencies": ["eslint"]
+                }
+              ],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "test": {
+              "options": {
+                "cwd": "apps/crew",
+                "command": "jest"
+              },
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": ["jest"]
+                }
+              ],
+              "outputs": ["{workspaceRoot}/coverage/apps/crew"],
+              "executor": "nx:run-commands",
+              "configurations": {}
+            },
+            "serve-static": {
+              "executor": "@nx/web:file-server",
+              "dependsOn": ["build"],
+              "options": {
+                "watch": false,
+                "staticFilePath": "apps/crew/out",
+                "port": 4201
+              },
+              "configurations": {}
+            }
+          },
+          "name": "crew",
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "sourceRoot": "apps/crew",
+          "projectType": "application",
+          "tags": [],
+          "implicitDependencies": []
+        }
+      }
+    },
+    "dependencies": {
+      "flight-simulator-e2e": [
+        {
+          "source": "flight-simulator-e2e",
+          "target": "flight-simulator",
+          "type": "implicit"
+        }
+      ],
+      "flight-simulator": [],
+      "navigation-e2e": [
+        {
+          "source": "navigation-e2e",
+          "target": "navigation",
+          "type": "implicit"
+        }
+      ],
+      "navigation": [],
+      "crew-e2e": [
+        {
+          "source": "crew-e2e",
+          "target": "crew",
+          "type": "implicit"
+        }
+      ],
+      "crew": []
+    }
+  },
+  "affectedProjects": [],
+  "criticalPath": []
+}
