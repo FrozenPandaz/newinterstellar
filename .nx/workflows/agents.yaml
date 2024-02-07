@@ -1,0 +1,25 @@
+launch-templates:
+  custom-linux-medium:
+    resource-class: 'docker_linux_amd64/medium'
+    image: 'ubuntu22.04-node20.9-v2'
+    init-steps:
+      - name: Checkout
+        uses: 'nrwl/nx-cloud-workflows/v2.0/workflow-steps/checkout/main.yaml'
+      - name: Print Graph
+        script: 'node index.js'
+      - name: Restore Node Modules Cache
+        uses: 'nrwl/nx-cloud-workflows/v2.0/workflow-steps/cache/main.yaml'
+        env:
+          KEY: 'package-lock.json|yarn.lock|pnpm-lock.yaml'
+          PATHS: 'node_modules'
+          BASE_BRANCH: 'main'
+      - name: Print Graph
+        script: 'node index.js'
+      - name: Install Node Modules
+        uses: 'nrwl/nx-cloud-workflows/v2.0/workflow-steps/install-node-modules/main.yaml'
+      - name: Print Graph
+        script: 'node index.js'
+      - name: Install Browsers (if needed)
+        uses: 'nrwl/nx-cloud-workflows/v2.0/workflow-steps/install-browsers/main.yaml'
+      - name: Print Graph
+        script: 'node index.js'
